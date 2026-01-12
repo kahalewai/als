@@ -1,8 +1,8 @@
 <div align="center">
 
+
 # ALS Security Standard for MCP
 
-<br>
 
 Welcome to the ALS (Agent Layer Security) Security Specification Landing
 
@@ -10,91 +10,109 @@ Welcome to the ALS (Agent Layer Security) Security Specification Landing
 
 </div>
 
-<br>
-
 ## Intro
 
-ALS (Agent Layer Security) is a community-driven standard for securing AI agent interactions over MCP. ALS defines a new security protocol for MCP, providing authorization, authenticity, trust, and audit capabilities. ALS ensures that AI agents can interact safely, reliably, and transparently across MCP connections.
-
-AI agent interactions are increasingly complex, distributed, and security-sensitive. ALS enables robust, auditable, and trust-aware agent communication, helping organizations prevent supply-chain attacks, enforce authorization policies, and maintain operational integrity across autonomous AI systems. ALS is designed to provide end-to-end security for AI agent interactions over MCP connections. Inspired by principles similar to TLS for transport security, ALS operates at the application layer, focusing on:
-
-* Cryptographically bound capability tokens for authorization.
-* Signed manifests and artifact hashes for authenticity.
-* Reputation signals and continuous monitoring for trust evaluation.
-* Audit, revocation, and user consent mechanisms for **transparency and accountability.
-
-ALS is transport-agnostic, supporting TLS, mTLS, Unix Domain Sockets, or other secure channels, and provides real-time runtime verification of agents and artifacts. Similar to how TLS is implemented on top of TCP at the transport layer, ALS is implemented on top of MCP at the application layer. ALS provides a new set of security controls specific to Agent interactions over MCP connections.
+As AI agents and multi-agent systems become more interconnected, they increasingly rely on shared protocols to communicate, coordinate, and act. MCP has emerged as a powerful foundation for agent communication, enabling interoperability and flexible agent-to-agent interaction. However, as these systems move from experimentation into production, a critical gap becomes apparent: a standardized security layer for agent interactions over MCP.
 
 <br>
 
-## Goals
-
-The ALS standard is designed to:
-
-* Prevent replay, misbinding, and confused-deputy attacks.
-* Ensure artifact integrity through signed manifests and continuous verification.
-* Integrate reputation signals to assess risk and trustworthiness.
-* Provide audit trails, revocation protocols, and user consent flows.
-* Enable interoperable, production-ready implementations for AI systems and multi-agent architectures.
+ALS (Agent Layer Security) addresses this need.
 
 <br>
 
-## Who Should Use ALS
-
-ALS is intended for:
-
-* Security architects and AI engineers
-* AI platform and multi-agent system developers
-* Organizations building secure AI workflows
-* Authors of AI security standards or governance frameworks
+ALS is a production-ready, vendor-neutral security protocol designed to operate on top of MCP, providing explicit mechanisms for authorization, authenticity, trust, and audit. Rather than embedding security logic into prompts or ad-hoc guardrails, ALS defines a formal protocol that agents and platforms can rely on consistently and verifiably.
 
 <br>
 
-## How ALS Works
+The AI industry currently lacks a shared, interoperable way to answer questions like:
 
-ALS provides a layered security approach for AI agents:
-
-1. Transport-Bound Capability Tokens — fine-grained, short-lived authorization tokens tied to a secure session.
-2. Signed Manifests & Artifact Hashes — cryptographic verification of agent artifacts to prevent tampering.
-3. Reputation Signals — advisory or blocking inputs based on trust data.
-4. Continuous Monitoring — runtime verification and automatic token revocation.
-5. Audit & Consent Mechanisms — ensuring accountability, transparency, and explicit approval of privileged actions.
-
-These components work together to enforce security policies dynamically and protect the AI supply chain in real-time.
+* Who is authorized to perform a given action?
+* Can the tools or artifacts being executed be trusted?
+* What happens if something changes at runtime?
+* How can actions be audited, revoked, or consented to?
 
 <br>
 
-## ALS Principles
-
-ALS adheres to the following guiding principles:
-
-* Defense in Depth: Multiple overlapping mechanisms prevent single-point failures.
-* Transport Binding: Tokens are cryptographically tied to sessions.
-* Fine-Grained Capabilities: Explicit enumeration of resources, tools, and actions.
-* Artifact Authenticity: Signed manifests verified before and during execution.
-* Trust Awareness: Incorporates reputation signals for advisory or blocking decisions.
-* Audit and Consent: Transparent, auditable actions with optional human consent.
-* Fail-Safe Defaults: Verification failures block execution unless overridden by explicit policy.
+ALS fills this gap by introducing a dedicated security layer for agent interactions, enabling safe, predictable, and governable AI systems without constraining innovation. The goal of ALS is simple: enable secure, auditable, trust-aware agent communication for real-world, production-scale AI systems.
 
 <br>
 
-## Contributing to ALS
+## ALS Security Model
 
-ALS is a community standard, and we encourage collaborative development. By contributing, you can:
-
-* Help shape a secure, interoperable AI ecosystem.
-* Establish a common vocabulary for AI security.
-* Influence best practices for agent authorization, verification, and trust.
-
-**Getting Started:**
-
-1. Fork this repository.
-2. Review the ALS specification, examples, and reference artifacts.
-3. Submit changes, clarifications, or improvements via Pull Requests (PRs).
-4. Join discussions on proposals, security considerations, and implementation guidance.
+ALS provides a security and trust reference model for AI agent interactions, focusing on the authorization, verification, and monitoring of agent behavior at runtime. Instead of redefining how agents reason or communicate, ALS defines how security signals are attached to and enforced alongside those interactions.
 
 <br>
 
+ALS is built around a clear separation of concerns:
 
+* MCP handles agent communication and messaging
+* ALS enforces authorization, authenticity, and trust
+* Runtime systems ensure continuous verification and revocation
 
-By participating in the ALS community, you join a collaborative effort to **secure the future of AI interactions**—making multi-agent ecosystems safer, more reliable, and auditable for everyone.
+<br>
+
+For the complete ALS specification, including cryptographic requirements, token formats, manifests, reputation feeds, and conformance rules, see the full standard here:
+[https://github.com/kahalewai/als/blob/main/als_standard.md](https://github.com/kahalewai/als/blob/main/als_standard.md)
+
+<br>
+<br>
+
+| Component | Name                          | Responsibility                                 | Security Guarantee Provided                       |
+| --------- | ----------------------------- | ---------------------------------------------- | ------------------------------------------------- |
+| 1         | Capability Tokens             | Encode fine-grained agent authorization        | Prevents over-privileged or implicit actions      |
+| 2         | Transport Binding             | Cryptographically binds tokens to sessions     | Blocks replay and misbinding attacks              |
+| 3         | Signed Manifests              | Describe tools and required capabilities       | Ensures tool authenticity and intent transparency |
+| 4         | Artifact Verification         | Validates runtime integrity of code and assets | Prevents supply-chain and tampering attacks       |
+| 5         | Reputation Signals            | Provide trust and risk context                 | Enables informed allow, warn, or block decisions  |
+| 6         | Continuous Runtime Monitoring | Re-verifies trust during execution             | Detects and stops mid-session compromise          |
+| 7         | Revocation & Audit Mechanisms | Revoke authority and log actions               | Enables accountability and rapid containment      |
+
+<br>
+
+This model is implementation-agnostic and applies to single agents, multi-agent systems, agent marketplaces, tool ecosystems, and shared AI platforms. Security is treated as a first-class runtime concern, not a best-effort policy layered on top of probabilistic behavior.
+
+<br>
+
+ALS is designed to strengthen MCP, not duplicate MCP, or complicate MCP. ALS provides a new security protocol for safe interoperability at scale. Similar to how TLS is run on top of TCP at the transport layer, ALS runs on top of MCP at the application layer, and provides a new set of security controls specific to Agent communication over MCP connections.
+
+<br>
+
+## Contribute
+
+ALS is a production-ready open security standard, developed to evolve through transparent, community-driven collaboration. This repository is the canonical home for the ALS specification, examples, and reference materials.
+
+<br>
+
+We invite AI platform builders, security engineers, protocol designers, researchers, and standards authors to help shape the future of secure agent communication.
+
+<br>
+
+Participation includes:
+
+* Contributing clarifications, examples, and reference flows
+* Proposing extensions aligned with ALS security principles
+* Reviewing changes for cryptographic and protocol correctness
+* Advancing interoperability and ecosystem adoption
+
+<br>
+
+Why contribute?
+
+* Help define a foundational security layer for agent ecosystems
+* Enable secure, auditable MCP-based systems
+* Establish shared trust primitives for AI interoperability
+* Influence the future of safe, scalable agent communication
+
+<br>
+
+How to get started:
+
+1. Fork the repository.
+2. Review the ALS specification and design principles.
+3. Open a Pull Request with proposed improvements or additions.
+4. Participate in open technical discussions and reviews.
+
+<br>
+
+By working together, we can ensure ALS becomes a widely adopted, interoperable security standard that enables trustworthy AI agent interactions across the entire ecosystem.
+
