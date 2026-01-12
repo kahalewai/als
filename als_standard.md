@@ -321,7 +321,20 @@ ALS specifies runtime token revocation:
 
 <br>
 
-## 14. Versioning and Error Handling
+## 14. Security Considerations and Attack Models
+
+| Attack Vector          | ALS Mitigation                                     |
+| ---------------------- | -------------------------------------------------- |
+| Token theft            | Short TTL, PoP binding, revocation                 |
+| Replay / misbinding    | Transport binding required                         |
+| Confused deputy        | Fine-grained capabilities, token verification      |
+| Supply-chain tampering | Manifest signature + artifact digest               |
+| Reputation poisoning   | Signed feeds, multi-validator quorum, human review |
+| Key compromise         | Short-lived keys, transparency logs, revocation    |
+
+<br>
+
+## 15. Versioning and Error Handling
 
 * Tokens, manifests, and reputation feeds MUST include version numbers
 * Implementations MUST define error codes for:
@@ -333,7 +346,7 @@ ALS specifies runtime token revocation:
 
 <br>
 
-## 15. Privacy Considerations
+## 16. Privacy Considerations
 
 * Minimize telemetry and do not expose client identities
 * Reputation signals SHOULD use hashed or anonymized identifiers
@@ -341,16 +354,16 @@ ALS specifies runtime token revocation:
 
 <br>
 
-## 16. Conformance and Interoperability
+## 17. Conformance and Interoperability
 
 * Implementations MUST provide test vectors for tokens, manifests, reputation feeds
 * Conformance tests MUST verify: signature verification, token binding, runtime revocation, and error handling
 
 <br>
 
-## 17. Message and Data Structures
+## 18. Message and Data Structures
 
-### 17.1 Capability Token
+### 18.1 Capability Token
 
 * iss: issuer
 * sub: subject
@@ -360,7 +373,7 @@ ALS specifies runtime token revocation:
 * capabilities: array of {resource, actions}
 * bound_to: transport binding information
 
-### 17.2 Manifest
+### 18.2 Manifest
 
 * name
 * version
@@ -370,7 +383,7 @@ ALS specifies runtime token revocation:
 * public_key
 * signature
 
-### 17.3 Reputation Feed Entry
+### 18.3 Reputation Feed Entry
 
 * entity_id
 * type
@@ -382,7 +395,7 @@ ALS specifies runtime token revocation:
 
 <br>
 
-## 18. Security Considerations
+## 19. Security Considerations
 
 ALS MUST protect against:
 
@@ -396,7 +409,7 @@ Continuous monitoring and runtime revocation are required for supply-chain defen
 
 <br>
 
-## 19. References
+## 20. References
 
 * RFC 2119 — Key words
 * JWT — JSON Web Token
