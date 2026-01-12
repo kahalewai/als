@@ -44,7 +44,7 @@
 
 ## 1. Introduction
 
-Agent Layer Security (ALS) defines a standardized security protocol for AI agent interactions over MCP, aggregating authorization, authenticity, and trust signals into a single protocol. ALS operates on top of MCP, similar to how TLS operates on top of HTTP or TCP (except ALS operates at the Application Layer, not the Transport Layer). ALS is transport-agnostic and provides mechanisms for:
+Agent Layer Security (ALS) defines a standardized security protocol for AI agent interactions over MCP, aggregating authorization, authenticity, and trust signals into a single protocol. ALS operates on top of MCP, similar to how TLS operates on top of TCP (except ALS operates at the Application Layer, not the Transport Layer). ALS is transport-agnostic and provides mechanisms for:
 
 * Authorization via cryptographically bound capability tokens
 * Authenticity via signed manifests and artifact hashes
