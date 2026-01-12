@@ -10,11 +10,11 @@ Welcome to the ALS (Agent Layer Security) Security Specification Landing
 
 </div>
 
-ALS (Agent Layer Security) is a community-driven standard for securing AI agent interactions over MCP. ALS defines a new security protocol for MCP, providing authorization, authenticity, trust, and audit capabilities. ALS ensures that AI agents can interact safely, reliably, and transparently across MCP connections.
-
 <br>
 
-## Introduction
+## Intro
+
+ALS (Agent Layer Security) is a community-driven standard for securing AI agent interactions over MCP. ALS defines a new security protocol for MCP, providing authorization, authenticity, trust, and audit capabilities. ALS ensures that AI agents can interact safely, reliably, and transparently across MCP connections.
 
 AI agent interactions are increasingly complex, distributed, and security-sensitive. ALS enables robust, auditable, and trust-aware agent communication, helping organizations prevent supply-chain attacks, enforce authorization policies, and maintain operational integrity across autonomous AI systems. ALS is designed to provide end-to-end security for AI agent interactions over MCP connections. Inspired by principles similar to TLS for transport security, ALS operates at the application layer, focusing on:
 
