@@ -1,8 +1,6 @@
 <div align="center">
 
-## Agent Layer Security (ALS)
-
-![als](https://github.com/user-attachments/assets/233d5ae7-4fbf-4f29-9b53-25bc2aada558)
+![als](https://github.com/user-attachments/assets/3df546e8-122c-490a-9cad-5c8152cfee06)
 
 Welcome to the Agent Layer Security (ALS) Security Standard Landing
 
