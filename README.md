@@ -109,6 +109,23 @@ Audit log is independent of the agent process and inaccessible to governed agent
 <br>
 <br>
 
+## View the ALS Standard
+
+For the complete formal specification, including definitions, requirements, and conformance criteria, see the full reference document:
+
+[ALS-Standard-v2.0.0.md](https://github.com/kahalewai/als/blob/main/als_standard.md)
+
+**Status:** Public Draft for Community Review
+
+**Version:** v2.0.0
+
+**License:** Apache License 2.0
+
+**Date:** 2026-03-15
+
+<br>
+<br>
+
 ## How Do I Use ALS?
 
 ALS defines three conformance tiers. Tiers are cumulative and designed for incremental adoption — each tier delivers independent value without requiring the other side of the connection to adopt first.
