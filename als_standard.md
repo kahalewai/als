@@ -1,7 +1,5 @@
 # AGENT LAYER SECURITY (ALS) Standard
 
-<br>
-
 ### Begin ALS Standard
 
 <br>
@@ -12,16 +10,11 @@
 
 **Date:** 2026-03-15
 
+**Authors:** Shawn Kahalewai Reilly
+
 **Version:** 2.0.0
 
 **License:** Apache License, Version 2.0
-
-**Authors:** Shawn Kahalewai Reilly
-
-**Supersedes:** ALS Standard v1.0.0
-
-**Related Standards:** MCP 2025-11-25, A2A v1.0, RFC 8446 (TLS 1.3),
-                       RFC 7301 (ALPN), SPIFFE v1.0, RFC 2119
 
 <br>
 
@@ -49,29 +42,28 @@ authorization, multi-agent chain governance, or QUIC transport governance
 
 ### TABLE OF CONTENTS
 
-Section 1:  Introduction
-Section 2:  Glossary
-Section 3:  Design Principles
-Section 4:  ALS Session Model
-Section 5:  Session Credential Protocol
-Section 6:  Governed Endpoint Configuration
-Section 7:  ALS Certificate Authority Requirements
-Section 8:  Control Channel Protocol
-Section 9:  Watchdog Mechanism
-Section 10: Push Notification Protocol
-Section 11: TLS Extensions
-Section 12: Audit Requirements
-Section 13: Tier 3 — ALS Framing Layer (Optional Extension)
-Section 14: Threat Model and Security Considerations
-Section 15: Conformance
-Section 16: Implementation Guidance (Informative)
-Section 17: Versioning and Protocol Evolution
-
-Appendix A: Audit Event Schema Reference (Normative)
-Appendix B: Regulatory Compliance Matrix (Informative)
-Appendix C: Known Gaps and Future Work (Informative)
-Appendix D: Exploration Lineage (Informative)
-Appendix E: Audit Summary (Informative)
+1. Introduction
+2. Glossary
+3. Design Principles
+4. ALS Session Model
+5. Session Credential Protocol
+6. Governed Endpoint Configuration
+7. ALS Certificate Authority Requirements
+8. Control Channel Protocol
+9. Watchdog Mechanism
+10. Push Notification Protocol
+11. TLS Extensions
+12. Audit Requirements
+13. Tier 3 — ALS Framing Layer (Optional Extension)
+14. Threat Model and Security Considerations
+15. Conformance
+16. Implementation Guidance (Informative)
+17. Versioning and Protocol Evolution
+- Appendix A: Audit Event Schema Reference (Normative)
+- Appendix B: Regulatory Compliance Matrix (Informative)
+- Appendix C: Known Gaps and Future Work (Informative)
+- Appendix D: Exploration Lineage (Informative)
+- Appendix E: Audit Summary (Informative)
 
 <br>
 
@@ -81,10 +73,10 @@ Appendix E: Audit Summary (Informative)
 ### 1.1 Background
 
 Artificial intelligence agents increasingly communicate over open
-protocols — specifically the Model Context Protocol (MCP, specification
+protocols, specifically the Model Context Protocol (MCP, specification
 2025-11-25) and the Agent-to-Agent Protocol (A2A, version 1.0). Both
 protocols use TLS-secured HTTP as their transport. Both define
-application-layer authentication and authorization mechanisms — OAuth 2.1
+application-layer authentication and authorization mechanisms, OAuth 2.1
 for MCP, OpenAPI-compatible authentication for A2A. Neither protocol
 defines an infrastructure-level mechanism by which an external authority
 can halt an active, authorized agent session.
@@ -92,8 +84,8 @@ can halt an active, authorized agent session.
 This gap is not an oversight in either protocol. MCP and A2A deliberately
 delegate transport security to TLS and focus their security specifications
 on application-layer concerns. The consequence is that the infrastructure
-enforcement layer — the ability to halt a governed session from outside
-the agent's trust domain — does not exist in either protocol's design
+enforcement layer, the ability to halt a governed session from outside
+the agent's trust domain, does not exist in either protocol's design
 space.
 
 This standard defines that infrastructure enforcement layer.
@@ -367,14 +359,14 @@ conflicting with these principles is non-conformant regardless of whether
 a specific requirement addresses the conflict. When requirements are
 ambiguous, these principles are the authoritative tie-breakers.
 
-**DP-1 — ENFORCEMENT BY CREDENTIAL WITHDRAWAL**
+**DP-1 - ENFORCEMENT BY CREDENTIAL WITHDRAWAL**
 ALS enforcement SHALL be achieved exclusively by withholding Session
 Credential renewal. ALS MUST NOT require proxy insertion in the agent
 data path for core conformance (Tier 1 or Tier 2). ALS MUST NOT inspect
 application-layer content of MCP or A2A messages as a condition of
 enforcement.
 
-**DP-2 — FAIL-CLOSED BY PHYSICS**
+**DP-2 - FAIL-CLOSED BY PHYSICS**
 The default outcome of any ALS Service failure — including unavailability
 of the Renewal Endpoint, network partition, or credential issuance
 failure — SHALL be cessation of governed agent connections, occurring
@@ -382,47 +374,47 @@ automatically without operator intervention. No conformant ALS
 implementation SHALL provide a configuration option producing fail-open
 behavior in response to ALS Service unavailability.
 
-**DP-3 — INDEPENDENCE OF THE SAFETY CHANNEL**
+**DP-3 - INDEPENDENCE OF THE SAFETY CHANNEL**
 The ALS Control Channel SHALL be cryptographically isolated from all
 Governed Agent data channels. Governed Agents SHALL NOT have any API
 access that can modify their own Session State. Commander Certificates
 SHALL be provisioned at ALS Service deployment time and SHALL NOT be
 negotiable by Governed Agents at session initialization.
 
-**DP-4 — ADOPTION WITHOUT COORDINATION**
+**DP-4 - ADOPTION WITHOUT COORDINATION**
 Each side of an ALS-governed connection SHALL derive independently
 verifiable value from ALS adoption without requiring the other side to
 have adopted ALS first. Tier 1 conformance SHALL require no changes to
 Governed Endpoints. Tier 2 conformance SHALL require no application code
 changes to Governed Endpoints.
 
-**DP-5 — VERIFIABLE ENFORCEMENT**
+**DP-5 - VERIFIABLE ENFORCEMENT**
 Every ALS enforcement action SHALL produce an Audit Event sufficient for
 an independent party to verify that the enforcement occurred, when it
 occurred, who authorized it, and what was enforced. Every normative
 requirement SHALL be independently testable by a conformance test.
 
-**DP-6 — PROPORTIONAL ENFORCEMENT**
+**DP-6 - PROPORTIONAL ENFORCEMENT**
 ALS SHALL provide distinct enforcement primitives for distinct threat
 response scenarios. HALT, PAUSE, and TERMINATE SHALL be distinct commands
 with distinct semantics, distinct Session State transitions, and distinct
 audit events.
 
-**DP-7 — MINIMUM VIABLE COMPLEXITY**
+**DP-7 - MINIMUM VIABLE COMPLEXITY**
 Every normative requirement SHALL be justified by a specific safety,
 security, or compliance need. Tier 2 core compliance SHALL require no
 more than two server-side TLS configuration changes. No new cryptographic
 primitive SHALL be defined — all cryptographic operations SHALL use
 IANA-registered or standards-track mechanisms.
 
-**DP-8 — AUDIT TRAIL IS NON-NEGOTIABLE**
+**DP-8 - AUDIT TRAIL IS NON-NEGOTIABLE**
 Every Session State transition, credential issuance, command received,
 command executed, and watchdog event SHALL produce a Tamper-Evident Audit
 Event. Audit logging SHALL be independent of the Governed Agent process.
 Enforcement SHALL proceed even when audit logging is temporarily degraded,
 but degraded audit logging SHALL itself trigger an alert.
 
-**DP-9 — PROTOCOL AGNOSTICISM AT THE ENFORCEMENT LAYER**
+**DP-9 - PROTOCOL AGNOSTICISM AT THE ENFORCEMENT LAYER**
 ALS enforcement mechanisms SHALL operate identically regardless of
 whether the governed connection carries MCP, A2A, or any other TLS-based
 agent protocol. ALS SHALL NOT require updates when governed protocols
@@ -2449,5 +2441,10 @@ restriction) are not defined.
 and RESTRICTED states.
 
 <br>
+
+**Supersedes:** ALS Standard v1.0.0
+
+**Related Standards:** MCP 2025-11-25, A2A v1.0, RFC 8446 (TLS 1.3),
+                       RFC 7301 (ALPN), SPIFFE v1.0, RFC 2119
 
 ### End ALS Standard
