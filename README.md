@@ -17,7 +17,7 @@
 
 <br>
 
-<!-- Badge placeholder: replace with actual repo badges -->
+
 ![Status: Draft for Public Comment](https://img.shields.io/badge/Status-Draft%20for%20Public%20Comment-yellow)
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue)
 ![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green)
