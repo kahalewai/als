@@ -361,6 +361,8 @@ Future ALS extensions planned:
 * Session Hierarchy Extension - Multi-agent chain governance with automatic halt propagation, developed in coordination with the A2A specification
 * Graduated Enforcement - MONITORED and RESTRICTED session states for proportional response
 
+<br>
+
 ## Community and Collaboration
 
 ALS is an open initiative. The standard is published as a Draft for Public Comment and the community's input will shape its evolution.
