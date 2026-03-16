@@ -1,26 +1,16 @@
 <div align="center">
 
-
-
+# AGENT LAYER SECURITY (ALS)
 
 ![als](https://github.com/user-attachments/assets/233d5ae7-4fbf-4f29-9b53-25bc2aada558)
 
-
-
-
-
-# AGENT LAYER SECURITY (ALS)
-
-### The Infrastructure-Layer Circuit Breaker for AI Agents
-
-*A Protocol Standard for Transport-Level Governance, Halt Enforcement, and AI Security Ecosystem Interoperability*
-
-<br>
-
+Welcome to the Agent Layer Security (ALS) Security Standard Landing
 
 ![Status: Draft for Public Comment](https://img.shields.io/badge/Status-Draft%20for%20Public%20Comment-yellow)
 ![Version: 2.0.0](https://img.shields.io/badge/Version-2.0.0-blue)
 ![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-green)
+
+<br>
 
 </div>
 
